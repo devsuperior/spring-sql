@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.aulasql.entities.Product;
+import com.devsuperior.aulasql.projections.ProductProjection;
 import com.devsuperior.aulasql.repositories.ProductRepository;
 
 @RestController
@@ -21,6 +22,12 @@ public class ProductController {
 	@GetMapping("/category/{categoryId}")
 	public List<Product> searchProducts(@PathVariable Long categoryId) {
 		
-		return repository.findAll();
+		return repository.findByCategoryId(categoryId);
+	}
+
+	@GetMapping("/category/{categoryId}/native")
+	public List<ProductProjection> searchProductsNative(@PathVariable Long categoryId) {
+		
+		return repository.searchProductsNative(categoryId);
 	}
 }
